@@ -7,14 +7,22 @@ this uses a simple SQLite database, but you can easily replace it with whatever 
 
 ### How to run it on your own machine
 
-1. Install the requirements
+1. **Set up a virtual environment (venv)**
+
+   ```
+   $ python -m venv env # Make sure to use python 3.11
+   $ source env/bin/activate  # On Windows use `env\Scripts\activate`
+   ```
+
+2. **Install the requirements**
 
    ```
    $ pip install -r requirements.txt
    ```
 
-2. Run the app
+3. **Run the app**
 
    ```
    $ streamlit run streamlit_app.py
    ```
+
