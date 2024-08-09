@@ -1,12 +1,31 @@
 import streamlit as st
 from streamlit_google_auth import Authenticate
+import json
+
+# Load secrets
+google_credentials = {
+    "web": {
+        "client_id": st.secrets["google_auth"]["client_id"],
+        "project_id": st.secrets["google_auth"]["project_id"],
+        "auth_uri": st.secrets["google_auth"]["auth_uri"],
+        "token_uri": st.secrets["google_auth"]["token_uri"],
+        "auth_provider_x509_cert_url": st.secrets["google_auth"]["auth_provider_x509_cert_url"],
+        "client_secret": st.secrets["google_auth"]["client_secret"],
+        "redirect_uris": st.secrets["google_auth"]["redirect_uris"].split(","),
+        "javascript_origins": st.secrets["google_auth"]["javascript_origins"].split(",")
+    }
+}
+
+# Save credentials to a temporary file
+with open('google_credentials_temp.json', 'w') as f:
+    json.dump(google_credentials, f)
 
 # Initialize the Authenticate class
 authenticator = Authenticate(
-    secret_credentials_path='google_credentials.json',
-    cookie_name='my_cookie_name',
-    cookie_key='this_is_secret',
-    redirect_uri='http://localhost:8501',
+    secret_credentials_path='google_credentials_temp.json',
+    cookie_name=st.secrets["environment"]["cookie_name"],
+    cookie_key=st.secrets["environment"]["cookie_key"],
+    redirect_uri=st.secrets["environment"]["redirect_uri"],
 )
 
 # Check if the user is already authenticated
