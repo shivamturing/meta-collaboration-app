@@ -16,12 +16,11 @@ authenticator.check_authentification()
 if not st.session_state.get('connected', False):
     authorization_url = authenticator.get_authorization_url()
     st.markdown(f'[Login]({authorization_url})')
-    st.button('Login', on_click=lambda: st.experimental_rerun())
+    st.link_button('Login', authorization_url)
+# Display the user information and logout button if the user is authenticated
 else:
-    # Display the user information and logout button
     st.image(st.session_state['user_info'].get('picture'))
     st.write(f"Hello, {st.session_state['user_info'].get('name')}")
     st.write(f"Your email is {st.session_state['user_info'].get('email')}")
     if st.button('Log out'):
         authenticator.logout()
-        st.experimental_rerun()
